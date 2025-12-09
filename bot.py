@@ -1,19 +1,17 @@
 
 
-
-from telegram import Update
 from  telegram.ext import CommandHandler, ApplicationBuilder
 
 
 from cmds.start import start
 from cmds.email import email
-
+from config import TOKEN
 
 
 def main():
     
     
-    bot = ApplicationBuilder().token("").build()
+    bot = ApplicationBuilder().token(TOKEN).build()
     
     
     bot.add_handler(CommandHandler("start",start))
