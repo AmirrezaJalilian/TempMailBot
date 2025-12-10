@@ -95,6 +95,6 @@ async def email(update:Update, context:ContextTypes.DEFAULT_TYPE):
 
 async def send_usage_message(update):
     """send usage message"""
-    await update.effective_message.reply_text("Usage: /email <create:list> or /email <messages:msgs:remove> <email>",parse_mode="HTML")
+    await update.effective_message.reply_text("Usage:\n - /email create\n/email list\n - /email messages email\n - /email msgs email\n - /email remove email",parse_mode="HTML")
     
 
