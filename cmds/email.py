@@ -32,7 +32,7 @@ async def email(update:Update, context:ContextTypes.DEFAULT_TYPE):
         return
     
     arg_1 = args[0]
-    arg_2 = args[1]
+    arg_2 = args[1] if len(args) > 1 else None
     
     if arg_1 == 'create':
         email,token = await create_account()
