@@ -37,7 +37,7 @@ async def create_account():
     
     return email,token
 
-def get_messages(token):
+async def get_messages(token):
     headers = {"Authorization": f"Bearer {token}"}
     messages = requests.get(
         BASE + "/messages",
@@ -45,7 +45,7 @@ def get_messages(token):
         ).json()
     return messages['hydra:member']
 
-def get_message(token, message_id):
+async def get_message(token, message_id):
     headers = {"Authorization": f"Bearer {token}"}
     return requests.get(
         BASE+"/messages/"+message_id,

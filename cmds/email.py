@@ -37,12 +37,12 @@ async def email(update:Update, context:ContextTypes.DEFAULT_TYPE):
     if arg_1 == 'create':
         email,token = await create_account()
         
-        if email['status'] == "Failed":
+        if email[0] == "Failed":
             await update.effective_message.reply_text(email['text'])
             return
         
         DataBaseJson.add_user_email(user_id,email,token)
-        await update.effective_message.reply_text(f"New Temp Email Successfully Created!\n\nEmail: <code>{email}\n\n When Used It AnyWhere For Get Messages Use: <code>/email <messages:msgs> <email>",parse_mode="HTML")
+        await update.effective_message.reply_text(f"New Temp Email Successfully Created!\n\nEmail: <code>{email}</code>\n\n When Used It AnyWhere For Get Messages Use: <code>/email messages email</code> or <code>/email msgs email</code>",parse_mode="HTML")
         
     elif arg_1 == 'list':
         user_emails = DataBaseJson.get_user_emails(user_id)
