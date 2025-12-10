@@ -14,5 +14,5 @@ async def start(update:Update,context:ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
     
     if chat_type in ["private","PRIVATE","Private"]:
-        await update.effective_message.reply_text(f"Hello {user.mention_html()}, Welcome To {context.bot.username}!")
+        await update.effective_message.reply_text(f"Hello {user.mention_html()}, Welcome To {context.bot.username}!",parse_mode="HTML")
 

@@ -42,20 +42,20 @@ async def email(update:Update, context:ContextTypes.DEFAULT_TYPE):
             return
         
         DataBaseJson.add_user_email(user_id,email,token)
-        await update.effective_message.reply_text(f"New Temp Email Successfully Created!\n\nEmail: <code>{email}\n\n When Used It AnyWhere For Get Messages Use: <code>/email <messages:msgs> <email>")
+        await update.effective_message.reply_text(f"New Temp Email Successfully Created!\n\nEmail: <code>{email}\n\n When Used It AnyWhere For Get Messages Use: <code>/email <messages:msgs> <email>",parse_mode="HTML")
         
     elif arg_1 == 'list':
         user_emails = DataBaseJson.get_user_emails(user_id)
         
         if user_emails == {} or None:
-            await update.effective_message.reply_text("🔰 You Have No Email Must Create Email(<code>/email create</code>) 🔰")
+            await update.effective_message.reply_text("🔰 You Have No Email Must Create Email(<code>/email create</code>) 🔰",parse_mode="HTML")
             return
         
         for email in user_emails:
             emails = "Your Emails:\n\n"
             emails+=f" - <code>{email}</code>\n   Status: {DataBaseJson.get_user_email_status(email)}\n"          
         
-        await update.effective_message.reply_text(emails)
+        await update.effective_message.reply_text(emails,parse_mode="HTML")
         
     elif arg_1 == 'messages' or 'msgs':
         if not arg_2:
@@ -87,7 +87,7 @@ async def email(update:Update, context:ContextTypes.DEFAULT_TYPE):
             return
         
         DataBaseJson.rem_user_email(user_id,email)
-        await update.effective_message.reply_text(f"✔ Email <code>{email}</code> Successfully Rmoved ✔")
+        await update.effective_message.reply_text(f"✔ Email <code>{email}</code> Successfully Rmoved ✔",parse_mode="HTML")
         
     else:
         await send_usage_message(update)
@@ -95,6 +95,6 @@ async def email(update:Update, context:ContextTypes.DEFAULT_TYPE):
 
 async def send_usage_message(update):
     """send usage message"""
-    await update.effective_message.reply_text("Usage: /email <create:list> or /email <messages:msgs:remove> <email>")
+    await update.effective_message.reply_text("Usage: /email <create:list> or /email <messages:msgs:remove> <email>",parse_mode="HTML")
     
 

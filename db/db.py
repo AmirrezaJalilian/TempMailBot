@@ -37,7 +37,7 @@ class DataBaseJson:
             "emails":{}
         }
         
-        data["users"][user_id] = user_data
+        data["users"][str(user_id)] = user_data
         
         DataBaseJson.save(data)
     
@@ -45,7 +45,7 @@ class DataBaseJson:
     def exist(user_id):
         """check user is in data_file"""
         
-        return bool(user_id in DataBaseJson.get_users())
+        return bool(str(user_id) in DataBaseJson.get_users())
     
     @staticmethod 
     def rem_user(user_id):
@@ -53,7 +53,7 @@ class DataBaseJson:
         
         data = DataBaseJson.load()
         
-        del data['users'][user_id]
+        del data['users'][str(user_id)]
         
         DataBaseJson.save(data)
     
@@ -63,7 +63,7 @@ class DataBaseJson:
         
         data = DataBaseJson.load()
         
-        return data['users'][user_id]
+        return data['users'][str(user_id)]
     
     @staticmethod 
     def get_user_access(user_id):
@@ -87,7 +87,7 @@ class DataBaseJson:
 
         data = DataBaseJson.load()
         
-        data['users'][user_id]['access'] = access
+        data['users'][str(user_id)]['access'] = access
         
         DataBaseJson.save(data)
     
@@ -102,7 +102,7 @@ class DataBaseJson:
             "token":email_token
         }
         
-        data['users'][user_id]['emails'][email] = email_data
+        data['users'][str(user_id)]['emails'][str(email)] = email_data
         
         DataBaseJson.save(data)
     
@@ -118,7 +118,7 @@ class DataBaseJson:
         
         user_emails = DataBaseJson.get_user_emails(user_id)
         
-        return user_emails[email]
+        return user_emails[str(email)]
     
     @staticmethod
     def rem_user_email(user_id,email):
@@ -126,7 +126,7 @@ class DataBaseJson:
         
         data = DataBaseJson.load()
         
-        del data['users'][user_id]['emails'][email]
+        del data['users'][str(user_id)]['emails'][str(email)]
         
         DataBaseJson.save(data)
     
@@ -144,7 +144,7 @@ class DataBaseJson:
         
         data = DataBaseJson.load()
         
-        data['users'][user_id]['emails'][email]['status'] = status
+        data['users'][str(user_id)]['emails'][str(email)]['status'] = status
         
         DataBaseJson.save(data)
     
@@ -152,6 +152,6 @@ class DataBaseJson:
     def get_user_email_token(user_id,email):
         """return user email token from data_file"""
         
-        user_email = DataBaseJson.load()['users'][user_id]['emails'][email]
+        user_email = DataBaseJson.load()['users'][str(user_id)]['emails'][str(email)]
         
         return user_email['token']
