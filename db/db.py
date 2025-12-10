@@ -99,7 +99,8 @@ class DataBaseJson:
         
         email_data = {
             "status":True,
-            "token":email_token
+            "token":email_token,
+            "messages": {}
         }
         
         data['users'][str(user_id)]['emails'][str(email)] = email_data
@@ -110,7 +111,7 @@ class DataBaseJson:
     def exist_email(user_id,email):
         """check email is in user emails from data_file"""
         
-        return bool(email in DataBaseJson.get_user_emails(user_id))
+        return bool(str(email) in DataBaseJson.get_user_emails(user_id))
     
     @staticmethod
     def get_user_email(user_id,email):
@@ -155,3 +156,33 @@ class DataBaseJson:
         user_email = DataBaseJson.load()['users'][str(user_id)]['emails'][str(email)]
         
         return user_email['token']
+    
+    @staticmethod
+    def add_user_email_message(user_id,email,message_id,subject,sender,intro,body):
+        
+        data = DataBaseJson.load()
+        
+        message_data = {
+            'subject': subject,
+            'sender': sender,
+            'intro': intro,
+            'body': body
+        }
+        
+        data['users'][str(user_id)]['emails'][str(email)]['messages'][str(message_id)] = message_data
+        
+        DataBaseJson.save(data)
+        
+    @staticmethod
+    def get_user_email_message_body(user_id,email,message_id):
+        
+        email = DataBaseJson.get_user_email(user_id,email)
+        
+        return email['messages'][str(message_id)]['body']
+    
+    @staticmethod
+    def get_user_email_messages_count(user_id,email):
+        
+        email = DataBaseJson.get_user_email(user_id,email)
+        
+        return len(email['messages'])
